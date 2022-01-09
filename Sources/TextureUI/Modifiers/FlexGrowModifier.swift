@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 public struct FlexGrowModifier<Content>: LayoutModifier where Content: LayoutElement {
 
