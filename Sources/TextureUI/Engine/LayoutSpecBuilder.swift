@@ -19,6 +19,10 @@ public struct LayoutSpecBuilder {
 
     /// Passes a single node written as a child node through unmodified.
     ///
+    /// - Parameter content: Layout Content
+    ///
+    /// - Returns: Layout
+    ///
     /// An example of a single node written as a child node is
     /// `{ ASDisplayNode() }`.
     public static func buildBlock<Content>(_ content: Content) -> Layout
