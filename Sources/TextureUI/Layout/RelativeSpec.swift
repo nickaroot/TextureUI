@@ -18,7 +18,7 @@ public struct RelativeSpec<Content> where Content: LayoutElement {
     public init(
         horizontalPosition: ASRelativeLayoutSpecPosition = .start,
         verticalPosition: ASRelativeLayoutSpecPosition = .start,
-        sizingOption: ASRelativeLayoutSpecSizingOption = .minimumSize,
+        sizingOption: ASRelativeLayoutSpecSizingOption = [],
         @LayoutSpecBuilder _ content: () -> Content
     ) {
         self.horizontalPosition = horizontalPosition
@@ -31,7 +31,7 @@ public struct RelativeSpec<Content> where Content: LayoutElement {
         content: Content,
         horizontalPosition: ASRelativeLayoutSpecPosition = .start,
         verticalPosition: ASRelativeLayoutSpecPosition = .start,
-        sizingOption: ASRelativeLayoutSpecSizingOption = .minimumSize
+        sizingOption: ASRelativeLayoutSpecSizingOption = []
     ) {
         self.horizontalPosition = horizontalPosition
         self.verticalPosition = verticalPosition

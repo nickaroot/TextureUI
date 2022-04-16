@@ -37,7 +37,7 @@ extension LayoutElement {
     public func relativePosition(
         horizontal: ASRelativeLayoutSpecPosition,
         vertical: ASRelativeLayoutSpecPosition,
-        sizingOption: ASRelativeLayoutSpecSizingOption = .minimumSize
+        sizingOption: ASRelativeLayoutSpecSizingOption = []
     ) -> some LayoutElement {
         modifier(
             RelativeModifier<Self>(

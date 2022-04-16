@@ -16,7 +16,7 @@ public struct CenterSpec<Content> where Content: LayoutElement {
 
     public init(
         centeringOptions: ASCenterLayoutSpecCenteringOptions = .XY,
-        sizingOptions: ASCenterLayoutSpecSizingOptions = .minimumXY,
+        sizingOptions: ASCenterLayoutSpecSizingOptions = [],
         @LayoutSpecBuilder _ content: () -> Content
     ) {
         self.centeringOptions = centeringOptions
@@ -27,7 +27,7 @@ public struct CenterSpec<Content> where Content: LayoutElement {
     public init(
         content: Content,
         centeringOptions: ASCenterLayoutSpecCenteringOptions = .XY,
-        sizingOptions: ASCenterLayoutSpecSizingOptions = .minimumXY
+        sizingOptions: ASCenterLayoutSpecSizingOptions = []
     ) {
         self.centeringOptions = centeringOptions
         self.sizingOptions = sizingOptions
