@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Edge.swift
 //
 //
 //  Created by Nikita Arutyunov on 22.12.2021.
