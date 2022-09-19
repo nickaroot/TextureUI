@@ -42,6 +42,10 @@ public struct LayoutSpecBuilder {
     where Content: LayoutElement {
         content.map { .single($0) } ?? .empty
     }
+    
+    public static func buildIf() -> Layout {
+        .empty
+    }
 
     /// Provides support for "if" statements in multi-statement closures,
     /// producing conditional content for the "then" branch.
