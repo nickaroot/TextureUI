@@ -45,12 +45,12 @@ public struct LayoutSpecBuilder {
 
     /// Provides support for "if" statements in multi-statement closures,
     /// producing conditional content for the "then" branch.
-    //    public static func buildEither<TrueContent, FalseContent>(
-    //        first: TrueContent
-    //    ) -> ConditionalContent<TrueContent, FalseContent>
-    //    where TrueContent: LayoutElement, FalseContent: LayoutElement {
-    //        ConditionalContent<TrueContent, FalseContent>(.trueContent(first))
-    //    }
+    public static func buildEither<TrueContent, FalseContent>(
+        first: TrueContent
+    ) -> ConditionalContent<TrueContent, FalseContent>
+    where TrueContent: LayoutElement, FalseContent: LayoutElement {
+        ConditionalContent<TrueContent, FalseContent>(.trueContent(first))
+    }
 
     public static func buildEither(first component: Layout) -> Layout {
         component
@@ -58,12 +58,12 @@ public struct LayoutSpecBuilder {
 
     /// Provides support for "if-else" statements in multi-statement closures,
     /// producing conditional content for the "else" branch.
-    //    public static func buildEither<TrueContent, FalseContent>(
-    //        second: FalseContent
-    //    ) -> ConditionalContent<TrueContent, FalseContent>
-    //    where TrueContent: LayoutElement, FalseContent: LayoutElement {
-    //        ConditionalContent<TrueContent, FalseContent>(.falseContent(second))
-    //    }
+    public static func buildEither<TrueContent, FalseContent>(
+        second: FalseContent
+    ) -> ConditionalContent<TrueContent, FalseContent>
+    where TrueContent: LayoutElement, FalseContent: LayoutElement {
+        ConditionalContent<TrueContent, FalseContent>(.falseContent(second))
+    }
 
     public static func buildEither(second component: Layout) -> Layout {
         component
