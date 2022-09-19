@@ -38,9 +38,13 @@ public struct LayoutSpecBuilder {
     /// Provides support for “if” statements in multi-statement closures,
     /// producing an optional view that is visible only when the condition
     /// evaluates to `true`.
-    public static func buildIf<Content>(_ content: Content?) -> Layout?
-    where Content: LayoutElement {
-        content.map { .single($0) }
+//    public static func buildIf<Content>(_ content: Content?) -> Layout?
+//    where Content: LayoutElement {
+//        content.map { .single($0) }
+//    }
+    
+    public static func buildIf<Content>(_ content: Content?) -> Content? where Content: LayoutElement {
+        return content
     }
 
     /// Provides support for "if" statements in multi-statement closures,
