@@ -34,7 +34,7 @@ where Modifier: LayoutModifier, Modifier.Content == Content {
     }
     
     public var style: ASLayoutElementStyle {
-        layoutElement.style
+        content.style
     }
 }
 
