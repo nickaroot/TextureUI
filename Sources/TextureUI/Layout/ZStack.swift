@@ -28,6 +28,14 @@ extension ZStack: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
         [content.layoutElement].lazy
     }
+    
+    public var layoutElement: ASLayoutElement {
+        node.first ?? ASLayoutSpec()
+    }
+    
+    public var style: ASLayoutElementStyle {
+        layoutElement.style
+    }
 }
 
 public typealias WrapperSpec = ZStack

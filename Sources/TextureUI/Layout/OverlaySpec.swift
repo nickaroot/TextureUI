@@ -36,4 +36,12 @@ extension OverlaySpec: LayoutElement {
         ASOverlayLayoutSpec(child: content.layoutElement, overlay: overlay.layoutElement)
             .node
     }
+    
+    public var layoutElement: ASLayoutElement {
+        node.first ?? ASLayoutSpec()
+    }
+    
+    public var style: ASLayoutElementStyle {
+        layoutElement.style
+    }
 }

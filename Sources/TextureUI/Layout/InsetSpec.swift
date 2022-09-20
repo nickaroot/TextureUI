@@ -34,4 +34,12 @@ extension InsetSpec: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
         ASInsetLayoutSpec(insets: insets, child: content.layoutElement).node
     }
+    
+    public var layoutElement: ASLayoutElement {
+        node.first ?? ASLayoutSpec()
+    }
+    
+    public var style: ASLayoutElementStyle {
+        layoutElement.style
+    }
 }

@@ -9,7 +9,6 @@ import AsyncDisplayKit
 
 public struct HStack<Content>: StackLayoutProtocol, LayoutElement, StyleableLayout
 where Content: LayoutElement {
-
     public let direction: ASStackLayoutDirection = .horizontal
     public let spacing: CGFloat
     public let justifyContent: ASStackLayoutJustifyContent

@@ -15,39 +15,13 @@ public protocol LayoutElement {
     var style: ASLayoutElementStyle { get }
 }
 
-extension LayoutElement {
-    public var layoutElement: ASLayoutElement {
-        let layoutElements = node
-
-        guard layoutElements.count == 1, let layoutElement = layoutElements.first else {
-            return ASWrapperLayoutSpec(layoutElements: layoutElements.elements)
-        }
-
-        return layoutElement
-    }
-
-    public var layoutElements: [ASLayoutElement] {
-        let layoutElements = node
-
-        guard layoutElements.count == 1, let layoutElement = layoutElements.first else {
-            return layoutElements.elements
-        }
-
-        return [layoutElement]
-    }
-
-    public var style: ASLayoutElementStyle {
-        guard let styleable = self as? StyleableLayout else {
-            return layoutElement.style
-        }
-
-        return styleable.style
-    }
-}
-
 extension ASLayoutSpec: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
         [self].lazy
+    }
+    
+    public var layoutElement: ASLayoutElement {
+        self
     }
 }
 
@@ -55,18 +29,23 @@ extension ASDisplayNode: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
         [self].lazy
     }
+    
+    public var layoutElement: ASLayoutElement {
+        self
+    }
 }
 
 extension Optional: LayoutElement where Wrapped: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
         self.map { $0.node } ?? ASLayoutSpec().node
     }
+    
+    public var layoutElement: ASLayoutElement {
+        self.map { $0.layoutElement } ?? ASLayoutSpec()
+    }
 
     public var style: ASLayoutElementStyle {
-        guard let styleable = self as? StyleableLayout else {
-            return layoutElement.style
-        }
-        return styleable.style
+        layoutElement.style
     }
 }
 
@@ -80,12 +59,13 @@ extension Array: LayoutElement where Element: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
         self.map { $0.layoutElement }.lazy
     }
+    
+    public var layoutElement: ASLayoutElement {
+        ASWrapperLayoutSpec(layoutElements: self.map { $0.layoutElement })
+    }
 
     public var style: ASLayoutElementStyle {
-        guard let styleable = self as? StyleableLayout else {
-            return layoutElement.style
-        }
-        return styleable.style
+        layoutElement.style
     }
 }
 

@@ -43,10 +43,6 @@ public protocol StackLayoutProtocol {
     )
 }
 
-public protocol StyleableLayout {
-    var style: ASLayoutElementStyle { get set }
-}
-
 extension StackLayoutProtocol where Self: StyleableLayout, Content: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
         [
@@ -58,7 +54,7 @@ extension StackLayoutProtocol where Self: StyleableLayout, Content: LayoutElemen
                 flexWrap: flexWrap,
                 alignContent: alignContent,
                 lineSpacing: lineSpacing,
-                children: content.layoutElements
+                children: content.node.elements
             )
             .styled({ style in
                 style.width = self.style.width
@@ -84,17 +80,8 @@ extension StackLayoutProtocol where Self: StyleableLayout, Content: LayoutElemen
         ]
         .lazy
     }
-
-    public var stackLayout: ASStackLayoutSpec {
-        ASStackLayoutSpec(
-            direction: direction,
-            spacing: spacing,
-            justifyContent: justifyContent,
-            alignItems: alignItems,
-            flexWrap: flexWrap,
-            alignContent: alignContent,
-            lineSpacing: lineSpacing,
-            children: content.layoutElements
-        )
+    
+    public var layoutElement: ASLayoutElement {
+        node.first ?? ASLayoutSpec()
     }
 }

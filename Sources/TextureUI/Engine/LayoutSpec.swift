@@ -11,7 +11,7 @@ public class LayoutSpec<Content>: ASWrapperLayoutSpec where Content: LayoutEleme
     public init(
         @LayoutSpecBuilder _ content: () -> Content
     ) {
-        super.init(layoutElements: content().layoutElements)
+        super.init(layoutElements: content().node.elements)
     }
 }
 
@@ -19,6 +19,6 @@ public final class AnyLayoutSpec: ASWrapperLayoutSpec {
     public init<Content: LayoutElement>(
         @LayoutSpecBuilder _ content: () -> Content
     ) {
-        super.init(layoutElements: content().layoutElements)
+        super.init(layoutElements: content().node.elements)
     }
 }

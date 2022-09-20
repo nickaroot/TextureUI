@@ -32,6 +32,14 @@ public struct AbsoluteSpec<Content> where Content: LayoutElement {
 
 extension AbsoluteSpec: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
-        ASAbsoluteLayoutSpec(sizing: sizing, children: content.layoutElements).node
+        ASAbsoluteLayoutSpec(sizing: sizing, children: content.node.elements).node
+    }
+    
+    public var layoutElement: ASLayoutElement {
+        node.first ?? ASLayoutSpec()
+    }
+    
+    public var style: ASLayoutElementStyle {
+        layoutElement.style
     }
 }

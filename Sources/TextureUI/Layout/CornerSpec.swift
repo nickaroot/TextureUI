@@ -45,4 +45,12 @@ extension CornerSpec: LayoutElement {
         )
         .node
     }
+    
+    public var layoutElement: ASLayoutElement {
+        node.first ?? ASLayoutSpec()
+    }
+    
+    public var style: ASLayoutElementStyle {
+        layoutElement.style
+    }
 }
