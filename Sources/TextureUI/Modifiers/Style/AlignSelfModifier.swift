@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct AlignSelfModifier<Content>: LayoutModifier where Content: LayoutElement {
+public struct AlignSelfModifier<Content>: LayoutStyleModifier where Content: LayoutElement {
     public let alignSelf: ASStackLayoutAlignSelf
 
     public init(

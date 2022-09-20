@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct OverlayModifier<Content, Overlay>: LayoutModifier
+public struct OverlayModifier<Content, Overlay>: LayoutSpecModifier
 where Content: LayoutElement, Overlay: LayoutElement {
 
     public let overlay: Overlay?

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct FlexShrinkModifier<Content>: LayoutModifier where Content: LayoutElement {
+public struct FlexShrinkModifier<Content>: LayoutStyleModifier where Content: LayoutElement {
 
     public let flexShrink: CGFloat
 

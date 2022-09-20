@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct SpacingModifier<Content>: LayoutModifier where Content: LayoutElement {
+public struct SpacingModifier<Content>: LayoutStyleModifier where Content: LayoutElement {
 
     public let spacingAfter: CGFloat?
     public let spacingBefore: CGFloat?

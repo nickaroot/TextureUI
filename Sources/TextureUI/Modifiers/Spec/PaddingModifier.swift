@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PaddingModifier<Content>: LayoutModifier where Content: LayoutElement {
+public struct PaddingModifier<Content>: LayoutSpecModifier where Content: LayoutElement {
 
     public var insets: UIEdgeInsets
 

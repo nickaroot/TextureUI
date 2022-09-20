@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct LayoutSizeModifier<Content>: LayoutModifier where Content: LayoutElement {
+public struct LayoutSizeModifier<Content>: LayoutStyleModifier where Content: LayoutElement {
     public enum Spec {
         case preferred
         case min

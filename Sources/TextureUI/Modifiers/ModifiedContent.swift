@@ -8,8 +8,7 @@
 import AsyncDisplayKit
 
 @frozen
-public struct ModifiedContent<Content, Modifier> {
-
+public struct ModifiedContent<Content, Modifier: LayoutModifier> {
     public var content: Content
 
     public var modifier: Modifier
@@ -23,8 +22,7 @@ public struct ModifiedContent<Content, Modifier> {
     }
 }
 
-extension ModifiedContent: LayoutElement
-where Modifier: LayoutModifier, Modifier.Content == Content {
+extension ModifiedContent: LayoutElement where Modifier.Content == Content {
     public var node: LazySequence<[ASLayoutElement]> {
         modifier.modify(content: content).node
     }

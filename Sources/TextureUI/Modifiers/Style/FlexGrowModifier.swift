@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct FlexGrowModifier<Content>: LayoutModifier where Content: LayoutElement {
+public struct FlexGrowModifier<Content>: LayoutStyleModifier where Content: LayoutElement {
 
     public let flexGrow: CGFloat
 

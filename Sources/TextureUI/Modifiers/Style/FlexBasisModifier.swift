@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct FlexBasisModifier<Content>: LayoutModifier where Content: LayoutElement {
+public struct FlexBasisModifier<Content>: LayoutStyleModifier where Content: LayoutElement {
 
     public let flexBasis: ASDimension
 

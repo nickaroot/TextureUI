@@ -7,7 +7,7 @@
 
 import AsyncDisplayKit
 
-public struct RelativeModifier<Content>: LayoutModifier where Content: LayoutElement {
+public struct RelativeModifier<Content>: LayoutSpecModifier where Content: LayoutElement {
 
     public let horizontal: ASRelativeLayoutSpecPosition
     public let vertical: ASRelativeLayoutSpecPosition

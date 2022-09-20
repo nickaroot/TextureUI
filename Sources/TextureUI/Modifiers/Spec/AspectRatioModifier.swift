@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct AspectRatioModifier<Content>: LayoutModifier where Content: LayoutElement {
+public struct AspectRatioModifier<Content>: LayoutSpecModifier where Content: LayoutElement {
 
     public let ratio: CGFloat
 

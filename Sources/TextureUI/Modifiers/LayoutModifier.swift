@@ -12,9 +12,3 @@ public protocol LayoutModifier {
 
     func modify(content: Content) -> LayoutElement
 }
-
-extension LayoutModifier {
-    public func concat<T>(_ modifier: T) -> ModifiedContent<Self, T> {
-        .init(content: self, modifier: modifier)
-    }
-}

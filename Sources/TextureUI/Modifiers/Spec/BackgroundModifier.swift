@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct BackgroundModifier<Content, Background>: LayoutModifier
+public struct BackgroundModifier<Content, Background>: LayoutSpecModifier
 where Content: LayoutElement, Background: LayoutElement {
 
     public let background: Background?
