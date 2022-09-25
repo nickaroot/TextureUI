@@ -1,6 +1,6 @@
 # TextureUI
 
-Texture (AsyncDisplayKit) DSL Support with lazy introspection
+Texture (AsyncDisplayKit) DSL Support with lazy node introspection
 
 ### TextureSwiftSupport replacement
 
