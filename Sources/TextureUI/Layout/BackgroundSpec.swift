@@ -15,11 +15,11 @@ where Content: LayoutElement, BackgroundContent: LayoutElement {
     public let content: Content
     
     public init(
-        @LayoutSpecBuilder _ background: () -> BackgroundContent,
-        @LayoutSpecBuilder _ content: () -> Content
+        @LayoutSpecBuilder _ content: () -> Content,
+        @LayoutSpecBuilder background: () -> BackgroundContent
     ) {
-        self.background = background()
         self.content = content()
+        self.background = background()
     }
 
     public init(
@@ -28,6 +28,14 @@ where Content: LayoutElement, BackgroundContent: LayoutElement {
     ) {
         self.background = background
         self.content = content()
+    }
+    
+    public init(
+        content: Content,
+        @LayoutSpecBuilder background: () -> BackgroundContent
+    ) {
+        self.content = content
+        self.background = background()
     }
 
     public init(
