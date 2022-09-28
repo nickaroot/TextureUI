@@ -13,6 +13,14 @@ where Content: LayoutElement, OverlayContent: LayoutElement {
     public let overlay: OverlayContent
 
     public let content: Content
+    
+    public init(
+        @LayoutSpecBuilder _ overlay: () -> OverlayContent,
+        @LayoutSpecBuilder _ content: () -> Content
+    ) {
+        self.overlay = overlay()
+        self.content = content()
+    }
 
     public init(
         overlay: OverlayContent,

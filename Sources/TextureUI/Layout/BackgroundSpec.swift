@@ -13,6 +13,14 @@ where Content: LayoutElement, BackgroundContent: LayoutElement {
     public let background: BackgroundContent
 
     public let content: Content
+    
+    public init(
+        @LayoutSpecBuilder _ background: () -> BackgroundContent,
+        @LayoutSpecBuilder _ content: () -> Content
+    ) {
+        self.background = background()
+        self.content = content()
+    }
 
     public init(
         background: BackgroundContent,

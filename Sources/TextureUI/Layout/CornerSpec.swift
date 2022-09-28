@@ -14,6 +14,16 @@ where Content: LayoutElement, CornerContent: LayoutElement {
     public let location: ASCornerLayoutLocation
 
     public let content: Content
+    
+    public init(
+        location: ASCornerLayoutLocation,
+        @LayoutSpecBuilder _ corner: () -> CornerContent,
+        @LayoutSpecBuilder _ content: () -> Content
+    ) {
+        self.location = location
+        self.corner = corner()
+        self.content = content()
+    }
 
     public init(
         corner: CornerContent,
