@@ -16,7 +16,7 @@ let package = Package(
             targets: ["TextureUI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/nickaroot/Texture.git", .branch("spm")),
+        .package(name: "Texture", path: "../Texture"),
     ],
     targets: [
         .target(
