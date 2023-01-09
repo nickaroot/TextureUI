@@ -7,21 +7,10 @@
 
 import AsyncDisplayKit
 
-public struct VStack<Content>: StackLayoutProtocol, LayoutElement, StyleableLayout
+public struct VStack<Content>
 where Content: LayoutElement {
-
-    public let direction: ASStackLayoutDirection = .vertical
-    public let spacing: CGFloat
-    public let justifyContent: ASStackLayoutJustifyContent
-    public let alignItems: ASStackLayoutAlignItems
-    public let flexWrap: ASStackLayoutFlexWrap
-    public let alignContent: ASStackLayoutAlignContent
-    public let lineSpacing: CGFloat
-    public let isConcurrent: Bool
-
-    public let content: Content
-
-    public var style: ASLayoutElementStyle = ASLayoutElementStyle()
+    
+    public var layoutElement: ASLayoutElement
 
     public init(
         spacing: CGFloat = 0,
@@ -33,14 +22,16 @@ where Content: LayoutElement {
         isConcurrent: Bool = false,
         @LayoutSpecBuilder _ content: () -> Content
     ) {
-        self.spacing = spacing
-        self.justifyContent = justifyContent
-        self.alignItems = alignItems
-        self.flexWrap = flexWrap
-        self.alignContent = alignContent
-        self.lineSpacing = lineSpacing
-        self.isConcurrent = isConcurrent
-        self.content = content()
+        self.layoutElement = ASStackLayoutSpec(
+            direction: .vertical,
+            spacing: spacing,
+            justifyContent: justifyContent,
+            alignItems: alignItems,
+            flexWrap: flexWrap,
+            alignContent: alignContent,
+            lineSpacing: lineSpacing,
+            children: content().node.elements
+        )
     }
 
     public init(
@@ -53,13 +44,28 @@ where Content: LayoutElement {
         lineSpacing: CGFloat = 0,
         isConcurrent: Bool = false
     ) {
-        self.spacing = spacing
-        self.justifyContent = justifyContent
-        self.alignItems = alignItems
-        self.flexWrap = flexWrap
-        self.alignContent = alignContent
-        self.lineSpacing = lineSpacing
-        self.isConcurrent = isConcurrent
-        self.content = content
+        self.layoutElement = ASStackLayoutSpec(
+            direction: .vertical,
+            spacing: spacing,
+            justifyContent: justifyContent,
+            alignItems: alignItems,
+            flexWrap: flexWrap,
+            alignContent: alignContent,
+            lineSpacing: lineSpacing,
+            children: content.node.elements
+        )
+    }
+}
+
+extension VStack: LayoutElement {
+    public var node: LazySequence<[ASLayoutElement]> {
+        [
+            layoutElement
+        ]
+            .lazy
+    }
+    
+    public var style: ASLayoutElementStyle {
+        layoutElement.style
     }
 }

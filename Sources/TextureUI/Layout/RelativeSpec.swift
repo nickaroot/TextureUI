@@ -9,11 +9,7 @@ import AsyncDisplayKit
 
 public struct RelativeSpec<Content> where Content: LayoutElement {
 
-    public let horizontalPosition: ASRelativeLayoutSpecPosition
-    public let verticalPosition: ASRelativeLayoutSpecPosition
-    public let sizingOption: ASRelativeLayoutSpecSizingOption
-
-    public let content: Content
+    public var layoutElement: ASLayoutElement
 
     public init(
         horizontalPosition: ASRelativeLayoutSpecPosition = .start,
@@ -21,10 +17,12 @@ public struct RelativeSpec<Content> where Content: LayoutElement {
         sizingOption: ASRelativeLayoutSpecSizingOption = [],
         @LayoutSpecBuilder _ content: () -> Content
     ) {
-        self.horizontalPosition = horizontalPosition
-        self.verticalPosition = verticalPosition
-        self.sizingOption = sizingOption
-        self.content = content()
+        self.layoutElement = ASRelativeLayoutSpec(
+            horizontalPosition: horizontalPosition,
+            verticalPosition: verticalPosition,
+            sizingOption: sizingOption,
+            child: content().layoutElement
+        )
     }
 
     public init(
@@ -33,26 +31,21 @@ public struct RelativeSpec<Content> where Content: LayoutElement {
         verticalPosition: ASRelativeLayoutSpecPosition = .start,
         sizingOption: ASRelativeLayoutSpecSizingOption = []
     ) {
-        self.horizontalPosition = horizontalPosition
-        self.verticalPosition = verticalPosition
-        self.sizingOption = sizingOption
-        self.content = content
-    }
-}
-
-extension RelativeSpec: LayoutElement {
-    public var node: LazySequence<[ASLayoutElement]> {
-        ASRelativeLayoutSpec(
+        self.layoutElement = ASRelativeLayoutSpec(
             horizontalPosition: horizontalPosition,
             verticalPosition: verticalPosition,
             sizingOption: sizingOption,
             child: content.layoutElement
         )
-        .node
     }
-    
-    public var layoutElement: ASLayoutElement {
-        node.first ?? ASLayoutSpec()
+}
+
+extension RelativeSpec: LayoutElement {
+    public var node: LazySequence<[ASLayoutElement]> {
+        [
+            layoutElement
+        ]
+            .lazy
     }
     
     public var style: ASLayoutElementStyle {

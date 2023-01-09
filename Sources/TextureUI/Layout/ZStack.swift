@@ -9,28 +9,26 @@ import AsyncDisplayKit
 
 public struct ZStack<Content> where Content: LayoutElement {
 
-    public let content: Content
+    public var layoutElement: ASLayoutElement
 
     public init(
         @LayoutSpecBuilder _ content: () -> Content
     ) {
-        self.content = content()
+        self.layoutElement = content().layoutElement
     }
 
     public init(
         content: Content
     ) {
-        self.content = content
+        self.layoutElement = content.layoutElement
     }
 }
 
 extension ZStack: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
-        [content.layoutElement].lazy
-    }
-    
-    public var layoutElement: ASLayoutElement {
-        node.first ?? ASLayoutSpec()
+        [
+            layoutElement
+        ].lazy
     }
     
     public var style: ASLayoutElementStyle {

@@ -7,20 +7,10 @@
 
 import AsyncDisplayKit
 
-public struct HStack<Content>: StackLayoutProtocol, LayoutElement, StyleableLayout
+public struct HStack<Content>
 where Content: LayoutElement {
-    public let direction: ASStackLayoutDirection = .horizontal
-    public let spacing: CGFloat
-    public let justifyContent: ASStackLayoutJustifyContent
-    public let alignItems: ASStackLayoutAlignItems
-    public let flexWrap: ASStackLayoutFlexWrap
-    public let alignContent: ASStackLayoutAlignContent
-    public let lineSpacing: CGFloat
-    public let isConcurrent: Bool
-
-    public let content: Content
-
-    public var style: ASLayoutElementStyle = ASLayoutElementStyle()
+    
+    public var layoutElement: ASLayoutElement
 
     public init(
         spacing: CGFloat = 0,
@@ -32,14 +22,16 @@ where Content: LayoutElement {
         isConcurrent: Bool = false,
         @LayoutSpecBuilder _ content: () -> Content
     ) {
-        self.spacing = spacing
-        self.justifyContent = justifyContent
-        self.alignItems = alignItems
-        self.flexWrap = flexWrap
-        self.alignContent = alignContent
-        self.lineSpacing = lineSpacing
-        self.isConcurrent = isConcurrent
-        self.content = content()
+        self.layoutElement = ASStackLayoutSpec(
+            direction: .horizontal,
+            spacing: spacing,
+            justifyContent: justifyContent,
+            alignItems: alignItems,
+            flexWrap: flexWrap,
+            alignContent: alignContent,
+            lineSpacing: lineSpacing,
+            children: content().node.elements
+        )
     }
 
     public init(
@@ -52,13 +44,28 @@ where Content: LayoutElement {
         lineSpacing: CGFloat = 0,
         isConcurrent: Bool = false
     ) {
-        self.spacing = spacing
-        self.justifyContent = justifyContent
-        self.alignItems = alignItems
-        self.flexWrap = flexWrap
-        self.alignContent = alignContent
-        self.lineSpacing = lineSpacing
-        self.isConcurrent = isConcurrent
-        self.content = content
+        self.layoutElement = ASStackLayoutSpec(
+            direction: .horizontal,
+            spacing: spacing,
+            justifyContent: justifyContent,
+            alignItems: alignItems,
+            flexWrap: flexWrap,
+            alignContent: alignContent,
+            lineSpacing: lineSpacing,
+            children: content.node.elements
+        )
+    }
+}
+
+extension HStack: LayoutElement {
+    public var node: LazySequence<[ASLayoutElement]> {
+        [
+            layoutElement
+        ]
+            .lazy
+    }
+    
+    public var style: ASLayoutElementStyle {
+        layoutElement.style
     }
 }

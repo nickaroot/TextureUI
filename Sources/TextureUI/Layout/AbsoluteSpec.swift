@@ -8,35 +8,36 @@
 import AsyncDisplayKit
 
 public struct AbsoluteSpec<Content> where Content: LayoutElement {
-
-    public let sizing: ASAbsoluteLayoutSpecSizing
-
-    public let content: Content
+    
+    public var layoutElement: ASLayoutElement
 
     public init(
         sizing: ASAbsoluteLayoutSpecSizing = .default,
         @LayoutSpecBuilder _ content: () -> Content
     ) {
-        self.sizing = sizing
-        self.content = content()
+        self.layoutElement = ASAbsoluteLayoutSpec(
+            sizing: sizing,
+            children: content().node.elements
+        )
     }
 
     public init(
         content: Content,
         sizing: ASAbsoluteLayoutSpecSizing = .default
     ) {
-        self.sizing = sizing
-        self.content = content
+        self.layoutElement = ASAbsoluteLayoutSpec(
+            sizing: sizing,
+            children: content.node.elements
+        )
     }
 }
 
 extension AbsoluteSpec: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
-        ASAbsoluteLayoutSpec(sizing: sizing, children: content.node.elements).node
-    }
-    
-    public var layoutElement: ASLayoutElement {
-        node.first ?? ASLayoutSpec()
+        [
+            layoutElement
+        ]
+            .lazy
     }
     
     public var style: ASLayoutElementStyle {

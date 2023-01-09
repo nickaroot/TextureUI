@@ -8,35 +8,36 @@
 import AsyncDisplayKit
 
 public struct AspectRatioSpec<Content> where Content: LayoutElement {
-
-    public let ratio: CGFloat
-
-    public let content: Content
+    
+    public var layoutElement: ASLayoutElement
 
     public init(
         ratio: CGFloat,
         @LayoutSpecBuilder _ content: () -> Content
     ) {
-        self.ratio = ratio
-        self.content = content()
+        self.layoutElement = ASRatioLayoutSpec(
+            ratio: ratio,
+            child: content().layoutElement
+        )
     }
 
     public init(
         content: Content,
         ratio: CGFloat
     ) {
-        self.ratio = ratio
-        self.content = content
+        self.layoutElement = ASRatioLayoutSpec(
+            ratio: ratio,
+            child: content.layoutElement
+        )
     }
 }
 
 extension AspectRatioSpec: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
-        ASRatioLayoutSpec(ratio: ratio, child: content.layoutElement).node
-    }
-    
-    public var layoutElement: ASLayoutElement {
-        node.first ?? ASLayoutSpec()
+        [
+            layoutElement
+        ]
+            .lazy
     }
     
     public var style: ASLayoutElementStyle {

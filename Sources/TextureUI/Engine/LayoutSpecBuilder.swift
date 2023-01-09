@@ -14,7 +14,17 @@ public struct LayoutSpecBuilder {
     }
     
     public static func buildBlock(_ layout: Layout...) -> Layout {
-        .composite(layout)
+        guard
+            !layout.isEmpty
+        else {
+            return .empty
+        }
+        
+        if layout.count == 1, let singleLayout = layout.first {
+            return singleLayout
+        }
+        
+        return .composite(layout)
     }
     
     public static func buildBlock(_ layout: Layout?...) -> Layout {
@@ -26,8 +36,8 @@ public struct LayoutSpecBuilder {
             return .empty
         }
         
-        if layouts.count == 1, let layout = layouts.first {
-            return layout
+        if layouts.count == 1, let singleLayout = layouts.first {
+            return singleLayout
         }
         
         return .composite(layouts)
@@ -36,7 +46,17 @@ public struct LayoutSpecBuilder {
     public static func buildBlock<Content>(
         _ content: Content...
     ) -> Layout where Content: LayoutElement {
-        .composite(content)
+        guard
+            !content.isEmpty
+        else {
+            return .empty
+        }
+        
+        if content.count == 1, let singleElement = content.first {
+            return .single(singleElement)
+        }
+        
+        return .composite(content)
     }
     
     public static func buildBlock<Content>(
@@ -134,8 +154,14 @@ public struct LayoutSpecBuilder {
     }
     
     public static func buildArray(_ layout: [Layout]) -> Layout {
-        if layout.count == 1, let layout = layout.first {
-            return layout
+        guard
+            !layout.isEmpty
+        else {
+            return .empty
+        }
+        
+        if layout.count == 1, let singleLayout = layout.first {
+            return singleLayout
         }
         
         return .composite(layout)
@@ -150,16 +176,22 @@ public struct LayoutSpecBuilder {
             return .empty
         }
         
-        if layout.count == 1, let layout = layout.first {
-            return layout
+        if layout.count == 1, let singleLayout = layout.first {
+            return singleLayout
         }
         
         return .composite(layout)
     }
     
     public static func buildArray(_ content: [some LayoutElement]) -> Layout {
-        if content.count == 1, let content = content.first {
-            return .single(content)
+        guard
+            !content.isEmpty
+        else {
+            return .empty
+        }
+        
+        if content.count == 1, let singleElement = content.first {
+            return .single(singleElement)
         }
         
         return .composite(content)
@@ -174,8 +206,8 @@ public struct LayoutSpecBuilder {
             return .empty
         }
         
-        if content.count == 1, let content = content.first {
-            return .single(content)
+        if content.count == 1, let singleElement = content.first {
+            return .single(singleElement)
         }
         
         return .composite(content)

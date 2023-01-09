@@ -9,55 +9,56 @@ import AsyncDisplayKit
 
 public struct BackgroundSpec<Content, BackgroundContent>
 where Content: LayoutElement, BackgroundContent: LayoutElement {
-
-    public let background: BackgroundContent
-
-    public let content: Content
+    
+    public var layoutElement: ASLayoutElement
     
     public init(
         @LayoutSpecBuilder _ content: () -> Content,
         @LayoutSpecBuilder background: () -> BackgroundContent
     ) {
-        self.content = content()
-        self.background = background()
+        self.layoutElement = ASBackgroundLayoutSpec(
+            child: content().layoutElement,
+            background: background().layoutElement
+        )
     }
 
     public init(
         background: BackgroundContent,
         @LayoutSpecBuilder _ content: () -> Content
     ) {
-        self.background = background
-        self.content = content()
+        self.layoutElement = ASBackgroundLayoutSpec(
+            child: content().layoutElement,
+            background: background.layoutElement
+        )
     }
     
     public init(
         content: Content,
         @LayoutSpecBuilder background: () -> BackgroundContent
     ) {
-        self.content = content
-        self.background = background()
+        self.layoutElement = ASBackgroundLayoutSpec(
+            child: content.layoutElement,
+            background: background().layoutElement
+        )
     }
 
     public init(
         content: Content,
         background: BackgroundContent
     ) {
-        self.background = background
-        self.content = content
+        self.layoutElement = ASBackgroundLayoutSpec(
+            child: content.layoutElement,
+            background: background.layoutElement
+        )
     }
 }
 
 extension BackgroundSpec: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
-        ASBackgroundLayoutSpec(
-            child: content.layoutElement,
-            background: background.layoutElement
-        )
-        .node
-    }
-    
-    public var layoutElement: ASLayoutElement {
-        node.first ?? ASLayoutSpec()
+        [
+            layoutElement
+        ]
+            .lazy
     }
     
     public var style: ASLayoutElementStyle {

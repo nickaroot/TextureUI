@@ -9,19 +9,18 @@ import AsyncDisplayKit
 
 public struct CenterSpec<Content> where Content: LayoutElement {
 
-    public let centeringOptions: ASCenterLayoutSpecCenteringOptions
-    public let sizingOptions: ASCenterLayoutSpecSizingOptions
-
-    public let content: Content
+    public var layoutElement: ASLayoutElement
 
     public init(
         centeringOptions: ASCenterLayoutSpecCenteringOptions = .XY,
         sizingOptions: ASCenterLayoutSpecSizingOptions = [],
         @LayoutSpecBuilder _ content: () -> Content
     ) {
-        self.centeringOptions = centeringOptions
-        self.sizingOptions = sizingOptions
-        self.content = content()
+        self.layoutElement = ASCenterLayoutSpec(
+            centeringOptions: centeringOptions,
+            sizingOptions: sizingOptions,
+            child: content().layoutElement
+        )
     }
 
     public init(
@@ -29,24 +28,20 @@ public struct CenterSpec<Content> where Content: LayoutElement {
         centeringOptions: ASCenterLayoutSpecCenteringOptions = .XY,
         sizingOptions: ASCenterLayoutSpecSizingOptions = []
     ) {
-        self.centeringOptions = centeringOptions
-        self.sizingOptions = sizingOptions
-        self.content = content
+        self.layoutElement = ASCenterLayoutSpec(
+            centeringOptions: centeringOptions,
+            sizingOptions: sizingOptions,
+            child: content.layoutElement
+        )
     }
 }
 
 extension CenterSpec: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
-        ASCenterLayoutSpec(
-            centeringOptions: centeringOptions,
-            sizingOptions: sizingOptions,
-            child: content.layoutElement
-        )
-        .node
-    }
-    
-    public var layoutElement: ASLayoutElement {
-        node.first ?? ASLayoutSpec()
+        [
+            layoutElement
+        ]
+        .lazy
     }
     
     public var style: ASLayoutElementStyle {

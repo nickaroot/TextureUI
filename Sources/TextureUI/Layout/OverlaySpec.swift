@@ -9,52 +9,56 @@ import AsyncDisplayKit
 
 public struct OverlaySpec<Content, OverlayContent>
 where Content: LayoutElement, OverlayContent: LayoutElement {
-
-    public let overlay: OverlayContent
-
-    public let content: Content
+    
+    public var layoutElement: ASLayoutElement
     
     public init(
         @LayoutSpecBuilder _ content: () -> Content,
         @LayoutSpecBuilder overlay: () -> OverlayContent
     ) {
-        self.content = content()
-        self.overlay = overlay()
+        self.layoutElement = ASOverlayLayoutSpec(
+            child: content().layoutElement,
+            overlay: overlay().layoutElement
+        )
     }
 
     public init(
         overlay: OverlayContent,
         @LayoutSpecBuilder _ content: () -> Content
     ) {
-        self.overlay = overlay
-        self.content = content()
+        self.layoutElement = ASOverlayLayoutSpec(
+            child: content().layoutElement,
+            overlay: overlay.layoutElement
+        )
     }
     
     public init(
         content: Content,
         @LayoutSpecBuilder overlay: () -> OverlayContent
     ) {
-        self.content = content
-        self.overlay = overlay()
+        self.layoutElement = ASOverlayLayoutSpec(
+            child: content.layoutElement,
+            overlay: overlay().layoutElement
+        )
     }
 
     public init(
         content: Content,
         overlay: OverlayContent
     ) {
-        self.overlay = overlay
-        self.content = content
+        self.layoutElement = ASOverlayLayoutSpec(
+            child: content.layoutElement,
+            overlay: overlay.layoutElement
+        )
     }
 }
 
 extension OverlaySpec: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
-        ASOverlayLayoutSpec(child: content.layoutElement, overlay: overlay.layoutElement)
-            .node
-    }
-    
-    public var layoutElement: ASLayoutElement {
-        node.first ?? ASLayoutSpec()
+        [
+            layoutElement
+        ]
+            .lazy
     }
     
     public var style: ASLayoutElementStyle {
