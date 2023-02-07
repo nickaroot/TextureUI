@@ -28,9 +28,10 @@ extension ZStack: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
         [
             layoutElement
-        ].lazy
+        ]
+        .lazy
     }
-    
+
     public var style: ASLayoutElementStyle {
         layoutElement.style
     }

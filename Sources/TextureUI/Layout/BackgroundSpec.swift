@@ -9,9 +9,9 @@ import AsyncDisplayKit
 
 public struct BackgroundSpec<Content, BackgroundContent>
 where Content: LayoutElement, BackgroundContent: LayoutElement {
-    
+
     public var layoutElement: ASLayoutElement
-    
+
     public init(
         @LayoutSpecBuilder _ content: () -> Content,
         @LayoutSpecBuilder background: () -> BackgroundContent
@@ -31,7 +31,7 @@ where Content: LayoutElement, BackgroundContent: LayoutElement {
             background: background.layoutElement
         )
     }
-    
+
     public init(
         content: Content,
         @LayoutSpecBuilder background: () -> BackgroundContent
@@ -58,9 +58,9 @@ extension BackgroundSpec: LayoutElement {
         [
             layoutElement
         ]
-            .lazy
+        .lazy
     }
-    
+
     public var style: ASLayoutElementStyle {
         layoutElement.style
     }

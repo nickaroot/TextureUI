@@ -9,9 +9,9 @@ import AsyncDisplayKit
 
 public struct OverlaySpec<Content, OverlayContent>
 where Content: LayoutElement, OverlayContent: LayoutElement {
-    
+
     public var layoutElement: ASLayoutElement
-    
+
     public init(
         @LayoutSpecBuilder _ content: () -> Content,
         @LayoutSpecBuilder overlay: () -> OverlayContent
@@ -31,7 +31,7 @@ where Content: LayoutElement, OverlayContent: LayoutElement {
             overlay: overlay.layoutElement
         )
     }
-    
+
     public init(
         content: Content,
         @LayoutSpecBuilder overlay: () -> OverlayContent
@@ -58,9 +58,9 @@ extension OverlaySpec: LayoutElement {
         [
             layoutElement
         ]
-            .lazy
+        .lazy
     }
-    
+
     public var style: ASLayoutElementStyle {
         layoutElement.style
     }

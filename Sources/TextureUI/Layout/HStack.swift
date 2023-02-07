@@ -9,7 +9,7 @@ import AsyncDisplayKit
 
 public struct HStack<Content>
 where Content: LayoutElement {
-    
+
     public var layoutElement: ASLayoutElement
 
     public init(
@@ -62,9 +62,9 @@ extension HStack: LayoutElement {
         [
             layoutElement
         ]
-            .lazy
+        .lazy
     }
-    
+
     public var style: ASLayoutElementStyle {
         layoutElement.style
     }

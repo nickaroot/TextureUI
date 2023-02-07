@@ -1,6 +1,6 @@
 //
 //  ASDimension.swift
-//  
+//
 //
 //  Created by Nikita Arutyunov on 07.03.2022.
 //

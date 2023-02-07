@@ -1,3 +1,3 @@
 import Foundation
 
-public protocol LayoutSpecModifier: LayoutModifier { }
+public protocol LayoutSpecModifier: LayoutModifier {}

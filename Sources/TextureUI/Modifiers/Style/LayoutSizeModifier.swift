@@ -67,10 +67,12 @@ extension LayoutElement {
         modifier(LayoutSizeModifier<Self>(spec: .preferred, size: value))
     }
     public func preferredLayoutSize(width: ASDimension, height: ASDimension) -> some LayoutElement {
-        modifier(LayoutSizeModifier<Self>(
-            spec: .preferred,
-            size: ASLayoutSize(width: width, height: height)
-        ))
+        modifier(
+            LayoutSizeModifier<Self>(
+                spec: .preferred,
+                size: ASLayoutSize(width: width, height: height)
+            )
+        )
     }
     public func preferredLayoutWidth(_ value: ASDimension) -> some LayoutElement {
         modifier(LayoutSizeModifier<Self>(spec: .preferred, width: value))

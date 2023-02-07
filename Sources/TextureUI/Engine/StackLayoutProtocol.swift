@@ -80,7 +80,7 @@ extension StackLayoutProtocol where Self: StyleableLayout, Content: LayoutElemen
         ]
         .lazy
     }
-    
+
     public var layoutElement: ASLayoutElement {
         node.first ?? ASLayoutSpec()
     }

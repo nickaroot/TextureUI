@@ -19,7 +19,7 @@ extension ASLayoutSpec: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
         [self].lazy
     }
-    
+
     public var layoutElement: ASLayoutElement {
         self
     }
@@ -29,7 +29,7 @@ extension ASDisplayNode: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
         [self].lazy
     }
-    
+
     public var layoutElement: ASLayoutElement {
         self
     }
@@ -39,7 +39,7 @@ extension Optional: LayoutElement where Wrapped: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
         self.map { $0.node } ?? ASLayoutSpec().node
     }
-    
+
     public var layoutElement: ASLayoutElement {
         self.map { $0.layoutElement } ?? ASLayoutSpec()
     }
@@ -59,7 +59,7 @@ extension Array: LayoutElement where Element: LayoutElement {
     public var node: LazySequence<[ASLayoutElement]> {
         self.map { $0.layoutElement }.lazy
     }
-    
+
     public var layoutElement: ASLayoutElement {
         ASWrapperLayoutSpec(layoutElements: self.map { $0.layoutElement })
     }

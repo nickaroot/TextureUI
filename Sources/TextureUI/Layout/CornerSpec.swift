@@ -11,7 +11,7 @@ public struct CornerSpec<Content, CornerContent>
 where Content: LayoutElement, CornerContent: LayoutElement {
 
     public var layoutElement: ASLayoutElement
-    
+
     public init(
         location: ASCornerLayoutLocation,
         @LayoutSpecBuilder _ corner: () -> CornerContent,
@@ -54,9 +54,9 @@ extension CornerSpec: LayoutElement {
         [
             layoutElement
         ]
-            .lazy
+        .lazy
     }
-    
+
     public var style: ASLayoutElementStyle {
         layoutElement.style
     }

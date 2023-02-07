@@ -43,7 +43,7 @@ extension CenterSpec: LayoutElement {
         ]
         .lazy
     }
-    
+
     public var style: ASLayoutElementStyle {
         layoutElement.style
     }

@@ -8,7 +8,7 @@
 import AsyncDisplayKit
 
 public struct AspectRatioSpec<Content> where Content: LayoutElement {
-    
+
     public var layoutElement: ASLayoutElement
 
     public init(
@@ -37,9 +37,9 @@ extension AspectRatioSpec: LayoutElement {
         [
             layoutElement
         ]
-            .lazy
+        .lazy
     }
-    
+
     public var style: ASLayoutElementStyle {
         layoutElement.style
     }

@@ -26,11 +26,11 @@ extension ModifiedContent: LayoutElement where Modifier.Content == Content {
     public var node: LazySequence<[ASLayoutElement]> {
         modifier.modify(content: content).node
     }
-    
+
     public var layoutElement: ASLayoutElement {
         node.first ?? ASLayoutSpec()
     }
-    
+
     public var style: ASLayoutElementStyle {
         content.style
     }
