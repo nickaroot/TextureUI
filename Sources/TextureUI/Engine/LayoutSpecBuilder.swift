@@ -14,6 +14,8 @@ public struct LayoutSpecBuilder {
     }
     
     public static func buildBlock(_ layout: Layout...) -> Layout {
+        let layout = layout.dropEmpty
+        
         guard
             !layout.isEmpty
         else {
@@ -28,19 +30,19 @@ public struct LayoutSpecBuilder {
     }
     
     public static func buildBlock(_ layout: Layout?...) -> Layout {
-        let layouts = layout.compactMap { $0 }
+        let layout = layout.compactMap { $0 }.dropEmpty
         
         guard
-            !layouts.isEmpty
+            !layout.isEmpty
         else {
             return .empty
         }
         
-        if layouts.count == 1, let singleLayout = layouts.first {
+        if layout.count == 1, let singleLayout = layout.first {
             return singleLayout
         }
         
-        return .composite(layouts)
+        return .composite(layout)
     }
     
     public static func buildBlock<Content>(
@@ -154,6 +156,8 @@ public struct LayoutSpecBuilder {
     }
     
     public static func buildArray(_ layout: [Layout]) -> Layout {
+        let layout = layout.dropEmpty
+        
         guard
             !layout.isEmpty
         else {
@@ -168,7 +172,7 @@ public struct LayoutSpecBuilder {
     }
     
     public static func buildArray(_ layout: [Layout?]) -> Layout {
-        let layout = layout.compactMap { $0 }
+        let layout = layout.compactMap { $0 }.dropEmpty
         
         guard
             !layout.isEmpty

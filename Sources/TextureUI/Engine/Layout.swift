@@ -131,3 +131,15 @@ extension Layout: LayoutElement {
         }
     }
 }
+
+extension Sequence where Element == Layout {
+    public var dropEmpty: [Layout] {
+        filter { layout in
+            if case .empty = layout {
+                return false
+            } else {
+                return true
+            }
+        }
+    }
+}
