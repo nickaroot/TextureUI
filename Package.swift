@@ -13,19 +13,26 @@ let package = Package(
     products: [
         .library(
             name: "TextureUI",
-            targets: ["TextureUI"]),
+            targets: [
+                "TextureUI",
+            ]
+        ),
     ],
     dependencies: [
-        .package(url: "https://github.com/nickaroot/Texture.git", .branch("spm")),
+        .package(url: "https://github.com/nickaroot/Texture.git", branch: "spm"),
     ],
     targets: [
         .target(
             name: "TextureUI",
             dependencies: [
                 .product(name: "AsyncDisplayKit", package: "Texture"),
-            ]),
+            ]
+        ),
         .testTarget(
             name: "TextureUITests",
-            dependencies: ["TextureUI"]),
+            dependencies: [
+                "TextureUI",
+            ]
+        ),
     ]
 )
