@@ -19,7 +19,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/nickaroot/Texture.git", branch: "spm"),
+        .package(url: "https://github.com/nickaroot/Texture.git", branch: "main"),
     ],
     targets: [
         .target(
