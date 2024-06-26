@@ -5,10 +5,10 @@ import PackageDescription
 let package = Package(
     name: "TextureUI",
     platforms: [
-        .iOS(.v13),
-        .macOS(.v10_10),
-        .tvOS(.v13),
+        .iOS(.v14),
+        .tvOS(.v14),
         .watchOS(.v6),
+        .macOS(.v11),
     ],
     products: [
         .library(

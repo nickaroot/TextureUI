@@ -32,7 +32,13 @@ extension ModifiedContent: LayoutElement where Modifier.Content == Content {
     }
     
     public var style: ASLayoutElementStyle {
-        content.style
+        if let layoutSpecModifier = modifier as? any LayoutSpecModifier {
+            layoutElement.style
+        } else if let layoutStyleModifier = modifier as? any LayoutStyleModifier {
+            content.style
+        } else {
+            content.style
+        }
     }
 }
 
