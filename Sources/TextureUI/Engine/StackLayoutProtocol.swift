@@ -82,6 +82,36 @@ extension StackLayoutProtocol where Self: StyleableLayout, Content: LayoutElemen
     }
     
     public var layoutElement: ASLayoutElement {
-        node.first ?? ASLayoutSpec()
+        ASStackLayoutSpec(
+            direction: direction,
+            spacing: spacing,
+            justifyContent: justifyContent,
+            alignItems: alignItems,
+            flexWrap: flexWrap,
+            alignContent: alignContent,
+            lineSpacing: lineSpacing,
+            children: content.node.elements
+        )
+        .styled({ style in
+            style.width = self.style.width
+            style.height = self.style.height
+            style.minHeight = self.style.minHeight
+            style.maxHeight = self.style.maxHeight
+            style.minWidth = self.style.minWidth
+            style.maxWidth = self.style.maxWidth
+            style.preferredSize = self.style.preferredSize
+            style.preferredLayoutSize = self.style.preferredLayoutSize
+            style.minLayoutSize = self.style.minLayoutSize
+            style.maxLayoutSize = self.style.maxLayoutSize
+            style.spacingBefore = self.style.spacingBefore
+            style.spacingAfter = self.style.spacingAfter
+            style.flexGrow = self.style.flexGrow
+            style.flexShrink = self.style.flexShrink
+            style.flexBasis = self.style.flexBasis
+            style.alignSelf = self.style.alignSelf
+            style.ascender = self.style.ascender
+            style.descender = self.style.descender
+            style.layoutPosition = self.style.layoutPosition
+        })
     }
 }

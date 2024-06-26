@@ -28,7 +28,7 @@ extension ModifiedContent: LayoutElement where Modifier.Content == Content {
     }
     
     public var layoutElement: ASLayoutElement {
-        node.first ?? ASLayoutSpec()
+        modifier.modify(content: content).layoutElement
     }
     
     public var style: ASLayoutElementStyle {

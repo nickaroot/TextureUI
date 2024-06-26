@@ -1,0 +1,52 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "IGListKit",
+        "repositoryURL": "https://github.com/nickaroot/IGListKit",
+        "state": {
+          "branch": "main",
+          "revision": "731e8948906b6dd2729c8db428868efe5d78b1ad",
+          "version": null
+        }
+      },
+      {
+        "package": "PINCache",
+        "repositoryURL": "https://github.com/pinterest/PINCache.git",
+        "state": {
+          "branch": null,
+          "revision": "2fb85948463292c2e824148cf17dc62a4c217a94",
+          "version": "3.0.4"
+        }
+      },
+      {
+        "package": "PINOperation",
+        "repositoryURL": "https://github.com/pinterest/PINOperation.git",
+        "state": {
+          "branch": null,
+          "revision": "a74f978733bdaf982758bfa23d70a189f4b4c1b6",
+          "version": "1.2.3"
+        }
+      },
+      {
+        "package": "PINRemoteImage",
+        "repositoryURL": "https://github.com/pinterest/PINRemoteImage.git",
+        "state": {
+          "branch": "master",
+          "revision": "26818dc4ad9ca5ce3064e23524c4ac06e873076b",
+          "version": null
+        }
+      },
+      {
+        "package": "Texture",
+        "repositoryURL": "https://github.com/nickaroot/Texture.git",
+        "state": {
+          "branch": "main",
+          "revision": "25c61f6c51288284953de5753bd3be96aaa9a7fe",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
