@@ -44,3 +44,9 @@ extension AspectRatioSpec: LayoutElement {
         layoutElement.style
     }
 }
+
+extension LayoutElement {
+    public func aspectRatio(_ ratio: CGFloat) -> some LayoutElement {
+        AspectRatioSpec(content: self, ratio: ratio)
+    }
+}

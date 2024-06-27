@@ -65,3 +65,10 @@ extension BackgroundSpec: LayoutElement {
         layoutElement.style
     }
 }
+
+extension LayoutElement {
+    public func background<Background>(_ background: Background?) -> LayoutElement
+    where Background: LayoutElement {
+        background.map { BackgroundSpec(content: self, background: $0) } ?? self
+    }
+}

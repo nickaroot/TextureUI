@@ -52,3 +52,18 @@ extension RelativeSpec: LayoutElement {
         layoutElement.style
     }
 }
+
+extension LayoutElement {
+    public func relativePosition(
+        horizontal: ASRelativeLayoutSpecPosition,
+        vertical: ASRelativeLayoutSpecPosition,
+        sizingOption: ASRelativeLayoutSpecSizingOption = []
+    ) -> some LayoutElement {
+        RelativeSpec(
+            content: self,
+            horizontalPosition: horizontal,
+            verticalPosition: vertical,
+            sizingOption: sizingOption
+        )
+    }
+}

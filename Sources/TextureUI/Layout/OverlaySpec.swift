@@ -65,3 +65,10 @@ extension OverlaySpec: LayoutElement {
         layoutElement.style
     }
 }
+
+extension LayoutElement {
+    public func overlay<Overlay>(_ overlay: Overlay?) -> LayoutElement
+    where Overlay: LayoutElement {
+        overlay.map { OverlaySpec(content: self, overlay: $0) } ?? self
+    }
+}
