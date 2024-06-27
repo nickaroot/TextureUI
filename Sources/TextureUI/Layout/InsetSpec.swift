@@ -15,6 +15,16 @@ public struct InsetSpec<Content> where Content: LayoutElement {
         insets: UIEdgeInsets,
         @LayoutSpecBuilder _ content: () -> Content
     ) {
+        if let insetSpec = content() as? InsetSpec,
+           let insetLayoutSpec = insetSpec.layoutElement as? ASInsetLayoutSpec {
+            insetLayoutSpec.insets.top += insets.top
+            insetLayoutSpec.insets.left += insets.left
+            insetLayoutSpec.insets.bottom += insets.bottom
+            insetLayoutSpec.insets.right += insets.right
+            
+            self = insetSpec
+        }
+        
         self.layoutElement = ASInsetLayoutSpec(
             insets: insets,
             child: content().layoutElement
@@ -25,6 +35,16 @@ public struct InsetSpec<Content> where Content: LayoutElement {
         content: Content,
         insets: UIEdgeInsets
     ) {
+        if let insetSpec = content as? InsetSpec,
+           let insetLayoutSpec = insetSpec.layoutElement as? ASInsetLayoutSpec {
+            insetLayoutSpec.insets.top += insets.top
+            insetLayoutSpec.insets.left += insets.left
+            insetLayoutSpec.insets.bottom += insets.bottom
+            insetLayoutSpec.insets.right += insets.right
+            
+            self = insetSpec
+        }
+        
         self.layoutElement = ASInsetLayoutSpec(
             insets: insets,
             child: content.layoutElement
@@ -64,13 +84,11 @@ extension LayoutElement {
     }
 
     public func padding(_ length: CGFloat) -> some LayoutElement {
-        let computedLength = length ?? 0
-
         let insets = UIEdgeInsets(
-            top: computedLength,
-            left: computedLength,
-            bottom: computedLength,
-            right: computedLength
+            top: length,
+            left: length,
+            bottom: length,
+            right: length
         )
         
         return InsetSpec(content: self, insets: insets)
