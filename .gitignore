@@ -70,3 +70,9 @@ Derived/
 
 ### Tuist managed dependencies ###
 Tuist/Dependencies
+
+### SwiftPM / local build & test artifacts ###
+.build/
+.build-ios/
+.dd/
+.swiftpm/

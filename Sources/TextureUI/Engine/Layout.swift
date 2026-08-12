@@ -67,30 +67,9 @@ extension Layout: LayoutElement {
                     $0.layoutPosition = style.layoutPosition
                 }
             
-        case .single(let element, let style):
-            (element.layoutElement as? ASLayoutElement & ASLayoutElementStylability)?
-                .styled {
-                    $0.width = style.width
-                    $0.height = style.height
-                    $0.minHeight = style.minHeight
-                    $0.maxHeight = style.maxHeight
-                    $0.minWidth = style.minWidth
-                    $0.maxWidth = style.maxWidth
-                    $0.preferredSize = style.preferredSize
-                    $0.preferredLayoutSize = style.preferredLayoutSize
-                    $0.minLayoutSize = style.minLayoutSize
-                    $0.maxLayoutSize = style.maxLayoutSize
-                    $0.spacingBefore = style.spacingBefore
-                    $0.spacingAfter = style.spacingAfter
-                    $0.flexGrow = style.flexGrow
-                    $0.flexShrink = style.flexShrink
-                    $0.flexBasis = style.flexBasis
-                    $0.alignSelf = style.alignSelf
-                    $0.ascender = style.ascender
-                    $0.descender = style.descender
-                    $0.layoutPosition = style.layoutPosition
-                } ?? element.layoutElement
-            
+        case .single(let element, _):
+            element.layoutElement
+
         case .composite(let elements, let style):
             ASWrapperLayoutSpec(layoutElements: elements.map(\.layoutElement))
                 .styled {

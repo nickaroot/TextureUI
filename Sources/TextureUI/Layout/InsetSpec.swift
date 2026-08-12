@@ -15,36 +15,13 @@ public struct InsetSpec<Content> where Content: LayoutElement {
         insets: UIEdgeInsets,
         @LayoutSpecBuilder _ content: () -> Content
     ) {
-        if let insetSpec = content() as? InsetSpec,
-           let insetLayoutSpec = insetSpec.layoutElement as? ASInsetLayoutSpec {
-            insetLayoutSpec.insets.top += insets.top
-            insetLayoutSpec.insets.left += insets.left
-            insetLayoutSpec.insets.bottom += insets.bottom
-            insetLayoutSpec.insets.right += insets.right
-            
-            self = insetSpec
-        }
-        
-        self.layoutElement = ASInsetLayoutSpec(
-            insets: insets,
-            child: content().layoutElement
-        )
+        self.init(content: content(), insets: insets)
     }
 
     public init(
         content: Content,
         insets: UIEdgeInsets
     ) {
-        if let insetSpec = content as? InsetSpec,
-           let insetLayoutSpec = insetSpec.layoutElement as? ASInsetLayoutSpec {
-            insetLayoutSpec.insets.top += insets.top
-            insetLayoutSpec.insets.left += insets.left
-            insetLayoutSpec.insets.bottom += insets.bottom
-            insetLayoutSpec.insets.right += insets.right
-            
-            self = insetSpec
-        }
-        
         self.layoutElement = ASInsetLayoutSpec(
             insets: insets,
             child: content.layoutElement
