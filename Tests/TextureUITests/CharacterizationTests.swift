@@ -268,6 +268,61 @@ final class CharacterizationTests: XCTestCase {
         XCTAssertEqual(z.size.width, 100, accuracy: 0.5)
     }
 
+    func testDecorationSlotPreservesStyle() {
+        let overlayNode = makeStyledNode()
+        let overlaySpec = OverlaySpec { ASDisplayNode() } overlay: { overlayNode }
+        _ = overlaySpec.layoutElement
+        XCTAssertEqual(overlayNode.style.flexGrow, 3, accuracy: 0.001)
+        XCTAssertEqual(overlayNode.style.width.value, 77, accuracy: 0.001)
+
+        let backgroundNode = makeStyledNode()
+        let backgroundSpec = BackgroundSpec { ASDisplayNode() } background: { backgroundNode }
+        _ = backgroundSpec.layoutElement
+        XCTAssertEqual(backgroundNode.style.flexGrow, 3, accuracy: 0.001)
+        XCTAssertEqual(backgroundNode.style.width.value, 77, accuracy: 0.001)
+    }
+
+    func testMultipleConsecutiveNilsDropFromStack() {
+        let a = ASDisplayNode()
+        a.style.preferredSize = CGSize(width: 50, height: 40)
+        let n1: ASDisplayNode? = nil
+        let n2: ASDisplayNode? = nil
+        let c = ASDisplayNode()
+        c.style.preferredSize = CGSize(width: 50, height: 40)
+
+        let spec = LayoutSpec {
+            VStack(spacing: 8) {
+                [a, n1, n2, c]
+            }
+        }
+        let layout = spec.layoutThatFits(
+            ASSizeRangeMake(CGSize(width: 0, height: 0), CGSize(width: 320, height: 400))
+        )
+        guard let stack = layout.sublayouts.first else {
+            return XCTFail("expected stack layout")
+        }
+        XCTAssertEqual(stack.sublayouts.count, 2)
+        XCTAssertEqual(stack.sublayouts[1].frame.minY, 48, accuracy: 0.5)
+    }
+
+    func testAllNilArrayIsSafe() {
+        let n1: ASDisplayNode? = nil
+        let n2: ASDisplayNode? = nil
+
+        let spec = LayoutSpec {
+            VStack(spacing: 8) {
+                [n1, n2]
+            }
+        }
+        let layout = spec.layoutThatFits(
+            ASSizeRangeMake(CGSize(width: 0, height: 0), CGSize(width: 320, height: 400))
+        )
+        guard let stack = layout.sublayouts.first else {
+            return XCTFail("expected stack layout")
+        }
+        XCTAssertEqual(stack.sublayouts.count, 0)
+    }
+
     static let nodePathContainers: [(String, (ASDisplayNode) -> ASLayoutElement)] = [
         ("HStack", { n in HStack { n }.layoutElement }),
         ("VStack", { n in VStack { n }.layoutElement }),
