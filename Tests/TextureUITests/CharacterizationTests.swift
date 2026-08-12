@@ -36,6 +36,18 @@ final class CharacterizationTests: XCTestCase {
         ]
     }
 
+    private func frame(of node: ASLayoutElement, in layout: ASLayout) -> CGRect? {
+        if layout.layoutElement === node {
+            return layout.frame
+        }
+        for sublayout in layout.sublayouts {
+            if let found = frame(of: node, in: sublayout) {
+                return found
+            }
+        }
+        return nil
+    }
+
     func testXCTestActuallyDiscoversTestsInThisTarget() {
         XCTAssertTrue(true)
     }
@@ -321,6 +333,33 @@ final class CharacterizationTests: XCTestCase {
             return XCTFail("expected stack layout")
         }
         XCTAssertEqual(stack.sublayouts.count, 0)
+    }
+
+    func testSingleChildSpecsHonorPreservedSizeGeometrically() {
+        let sizeRange = ASSizeRangeMake(
+            CGSize(width: 0, height: 0),
+            CGSize(width: 320, height: 320)
+        )
+        let cases: [(String, (ASDisplayNode) -> ASLayoutSpec)] = [
+            ("CenterSpec", { n in LayoutSpec { CenterSpec { n } } }),
+            ("InsetSpec", { n in
+                LayoutSpec {
+                    InsetSpec(insets: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)) { n }
+                }
+            }),
+            ("OverlaySpec", { n in LayoutSpec { OverlaySpec { n } overlay: { ASDisplayNode() } } }),
+            ("BackgroundSpec", { n in LayoutSpec { BackgroundSpec { n } background: { ASDisplayNode() } } }),
+        ]
+        for (name, make) in cases {
+            let child = ASDisplayNode()
+            child.style.preferredSize = CGSize(width: 50, height: 40)
+            let layout = make(child).layoutThatFits(sizeRange)
+            guard let childFrame = frame(of: child, in: layout) else {
+                return XCTFail("\(name): child not found in layout")
+            }
+            XCTAssertEqual(childFrame.width, 50, accuracy: 0.5, "\(name) child width honored")
+            XCTAssertEqual(childFrame.height, 40, accuracy: 0.5, "\(name) child height honored")
+        }
     }
 
     static let nodePathContainers: [(String, (ASDisplayNode) -> ASLayoutElement)] = [
